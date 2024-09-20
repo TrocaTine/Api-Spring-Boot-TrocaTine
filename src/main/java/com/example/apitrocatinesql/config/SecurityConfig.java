@@ -1,16 +1,12 @@
 package com.example.apitrocatinesql.config;
 
 import com.example.apitrocatinesql.filter.JwtAuthenticationFilter;
-import com.example.apitrocatinesql.models.DTO.ExceptionHandlerDTO;
-import com.example.apitrocatinesql.models.DTO.StandarResponseDTO;
 import com.example.apitrocatinesql.services.CustomUserDetailService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,32 +29,14 @@ public class SecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("users/encrypt-password").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(new JwtAuthenticationFilter(userDetailsService, secretKey()),
                         UsernamePasswordAuthenticationFilter.class)
-                .userDetailsService(userDetailsService)
-                .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setContentType("application/json");
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            StandarResponseDTO standarResponseDTO = new StandarResponseDTO(true, new ExceptionHandlerDTO(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage(), request.getRequestURI()));
-                            ObjectMapper mapper = new ObjectMapper();
-                            String jsonResponse = mapper.writeValueAsString(standarResponseDTO);
-                            response.getWriter().write(jsonResponse);
-
-                        })
-                        .accessDeniedHandler(((request, response, accessDeniedException) -> {
-                                    response.setContentType("application/json");
-                                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                                    StandarResponseDTO standarResponseDTO = new StandarResponseDTO(true, new ExceptionHandlerDTO(HttpServletResponse.SC_FORBIDDEN, accessDeniedException.getMessage(), request.getRequestURI()));
-                                    ObjectMapper mapper = new ObjectMapper();
-                                    String jsonResponse = mapper.writeValueAsString(standarResponseDTO);
-                                    response.getWriter().write(jsonResponse);
-                                })
-                        ));
+                .userDetailsService(userDetailsService);
 
         return httpSecurity.build();
     }
@@ -70,5 +48,6 @@ public class SecurityConfig {
     public SecretKey secretKey(){
         return Keys.secretKeyFor(SignatureAlgorithm.HS512);
     }
+
 
 }
