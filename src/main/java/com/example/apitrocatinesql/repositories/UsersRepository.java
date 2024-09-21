@@ -1,10 +1,10 @@
 package com.example.apitrocatinesql.repositories;
 
-import com.example.apitrocatinesql.models.Users;
+import com.example.apitrocatinesql.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsersRepository extends JpaRepository<Users, Integer> {
+public interface UsersRepository extends JpaRepository<User, Integer> {
 
-    Users findByEmail(String email);
+    User findByEmail(String email);
 
 }

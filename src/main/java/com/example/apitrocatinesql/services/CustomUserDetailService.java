@@ -1,17 +1,15 @@
 package com.example.apitrocatinesql.services;
 
-import com.example.apitrocatinesql.models.Users;
+import com.example.apitrocatinesql.models.User;
 import com.example.apitrocatinesql.repositories.UsersRepository;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
@@ -23,7 +21,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        Users users = userReposiroty.findByEmail(email);
+        User users = userReposiroty.findByEmail(email);
         List<GrantedAuthority> authorities =  Collections.emptyList();
 
         return new org.springframework.security.core.userdetails.User(
