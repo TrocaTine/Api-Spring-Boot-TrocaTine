@@ -5,7 +5,7 @@ import com.example.apitrocatinesql.models.DTO.responseDTO.ExceptionHandlerDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.LoginDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.TokenDTO;
-import com.example.apitrocatinesql.models.Users;
+import com.example.apitrocatinesql.models.User;
 import com.example.apitrocatinesql.repositories.UsersRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,7 +41,7 @@ public class AuthController {
     }
     @PostMapping("/api/auth/login")
     public StandardResponseDTO login(@Valid @RequestBody LoginDTO loginRequest, HttpServletRequest request) throws JsonProcessingException {
-        Users user = usersRepository.findByEmail(loginRequest.email());
+        User user = usersRepository.findByEmail(loginRequest.email());
         if (user != null && passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             try {
                 String token = Jwts.builder()
