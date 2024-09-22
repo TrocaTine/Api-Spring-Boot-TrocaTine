@@ -1,6 +1,6 @@
 package com.example.apitrocatinesql.models.DTO.responseDTO;
 
-public record TokenDTO(
+public record TokenResponseDTO(
         String token
 ) {
 }

@@ -1,16 +1,15 @@
 package com.example.apitrocatinesql.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.management.ConstructorParameters;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstruc
 @Entity
 @Table(name = "phones")
 public class Phone {
@@ -26,5 +25,12 @@ public class Phone {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+
+    public Phone(String number, User user){
+        this.number = number;
+        this.user = user;
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.apitrocatinesql.models.DTO.responseDTO;
+package com.example.apitrocatinesql.exception;
 
 import java.util.Map;
 

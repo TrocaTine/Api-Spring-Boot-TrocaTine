@@ -43,23 +43,4 @@ public class Address {
     @ManyToMany(mappedBy = "addresses")
     private Set<User> users;
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Entity
-    @Table(name = "categories")
-    public static class Category {
-
-        @Id
-        @Column(name = "id_category")
-        private Integer idCategory;
-
-        @Column(name = "name")
-        private String name;
-
-        @ManyToMany(mappedBy = "categories")
-        private Set<Product> products;
-
-    }
 }

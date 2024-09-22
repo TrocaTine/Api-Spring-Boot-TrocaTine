@@ -63,7 +63,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "id_product"),
             inverseJoinColumns = @JoinColumn(name = "id_category")
     )
-    private Set<Address.Category> categories;
+    private Set<Category> categories;
 
     @ManyToMany(mappedBy = "favoriteProducts")
     private Set<User> usersFavorited;

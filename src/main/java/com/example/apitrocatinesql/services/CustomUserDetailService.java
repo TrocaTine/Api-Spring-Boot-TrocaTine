@@ -1,7 +1,7 @@
 package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.models.User;
-import com.example.apitrocatinesql.repositories.UsersRepository;
+import com.example.apitrocatinesql.repositories.UserRepository;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,14 +14,14 @@ import java.util.List;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UsersRepository userReposiroty;
-    public CustomUserDetailService( UsersRepository userReposiroty){
+    private final UserRepository userReposiroty;
+    public CustomUserDetailService( UserRepository userReposiroty){
         this.userReposiroty = userReposiroty;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        User users = userReposiroty.findByEmail(email);
+        User users = userReposiroty.findUserByEmail(email);
         List<GrantedAuthority> authorities =  Collections.emptyList();
 
         return new org.springframework.security.core.userdetails.User(

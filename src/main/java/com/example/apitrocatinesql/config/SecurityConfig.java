@@ -30,7 +30,9 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers("users/encrypt-password").permitAll()
+                        .requestMatchers("/users/encrypt-password").permitAll()
+                        .requestMatchers("/users/checking-email-already-registered").permitAll()
+                        .requestMatchers("/users/checking-cpf-already-registered").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
