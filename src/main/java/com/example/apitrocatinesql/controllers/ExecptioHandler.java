@@ -73,6 +73,13 @@ public class ExecptioHandler {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
+        @ExceptionHandler(SelfProductAddition.class)
+        public ResponseEntity<StandardResponseDTO> selfProductAddition(SelfProductAddition spa, HttpServletRequest request) {
+            StandardResponseDTO response = new StandardResponseDTO(true,
+                    new ExceptionHandlerDTO(403, spa.getMessage(), request.getServletPath()));
+            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+        }
+
 
 
 
