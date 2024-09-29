@@ -1,10 +1,6 @@
 package com.example.apitrocatinesql.models.DTO;
 
-import jakarta.validation.constraints.NotNull;
-
-public record PhoneDTO (
-        @NotNull
+public record PhoneDTO(
         String number
 ) {
-
 }
