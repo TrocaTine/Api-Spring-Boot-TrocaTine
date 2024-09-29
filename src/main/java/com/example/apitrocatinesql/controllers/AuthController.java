@@ -1,12 +1,12 @@
 package com.example.apitrocatinesql.controllers;
 
 import com.example.apitrocatinesql.config.SecurityConfig;
-import com.example.apitrocatinesql.models.DTO.responseDTO.ExceptionHandlerDTO;
+import com.example.apitrocatinesql.exception.ExceptionHandlerDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.LoginDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.TokenDTO;
+import com.example.apitrocatinesql.models.DTO.responseDTO.TokenResponseDTO;
 import com.example.apitrocatinesql.models.User;
-import com.example.apitrocatinesql.repositories.UsersRepository;
+import com.example.apitrocatinesql.repositories.UserRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.Jwts;
@@ -28,12 +28,12 @@ public class AuthController {
 
     //    private static final Logger logger = (Logger) LoggerFactory.getLogger(AuthController.class);
     public SecretKey secretKey;
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
     private PasswordEncoder passwordEncoder;
     private SecurityConfig securityConfig;
 
     @Autowired
-    public AuthController(UsersRepository usersRepository, PasswordEncoder passwordEncoder, SecretKey secretKey, SecurityConfig securityConfig) {
+    public AuthController(UserRepository usersRepository, PasswordEncoder passwordEncoder, SecretKey secretKey, SecurityConfig securityConfig) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
         this.secretKey  = secretKey;
@@ -41,7 +41,7 @@ public class AuthController {
     }
     @PostMapping("/api/auth/login")
     public StandardResponseDTO login(@Valid @RequestBody LoginDTO loginRequest, HttpServletRequest request) throws JsonProcessingException {
-        User user = usersRepository.findByEmail(loginRequest.email());
+        User user = usersRepository.findUserByEmail(loginRequest.email());
         if (user != null && passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             try {
                 String token = Jwts.builder()
@@ -50,7 +50,7 @@ public class AuthController {
                         .setExpiration(new Date(System.currentTimeMillis() + 86_400_000)) // 1 dia de validade
                         .signWith(secretKey, SignatureAlgorithm.HS512)
                         .compact();
-                return new StandardResponseDTO(false, new TokenDTO(token));
+                return new StandardResponseDTO(false, new TokenResponseDTO("Bearer " + token));
             } catch (Exception e) {
                 StandardResponseDTO standardResponseDTO = new StandardResponseDTO(
                         true,

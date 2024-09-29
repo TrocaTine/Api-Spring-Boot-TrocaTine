@@ -89,11 +89,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Highlight> highlights;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Trocadinha> trocadinhas; // Certifique-se de que está usando o nome correto
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Trocadinha> trocadinhas;
 
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<HistoryTrocadinha> historyTrocadinhas;
 
 }

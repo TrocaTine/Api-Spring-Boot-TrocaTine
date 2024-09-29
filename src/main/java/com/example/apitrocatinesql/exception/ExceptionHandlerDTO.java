@@ -1,4 +1,4 @@
-package com.example.apitrocatinesql.models.DTO.responseDTO;
+package com.example.apitrocatinesql.exception;
 
 public record ExceptionHandlerDTO(
         int code,
