@@ -40,8 +40,14 @@ public class Address {
     @Column(name = "cep", nullable = false)
     private String cep;
 
-    @ManyToMany(mappedBy = "addresses")
+    @ManyToMany
+    @JoinTable(
+            name = "adresses_users",
+            joinColumns = @JoinColumn(name = "id_adress"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
     private Set<User> users;
+
 
 }
 

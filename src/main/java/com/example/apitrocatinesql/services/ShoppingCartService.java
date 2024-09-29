@@ -3,11 +3,9 @@ package com.example.apitrocatinesql.services;
 import com.example.apitrocatinesql.exception.NotFound;
 import com.example.apitrocatinesql.exception.SelfProductAddition;
 import com.example.apitrocatinesql.models.DTO.requestDTO.AddProductShoppingCartResquestDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartResquestDTO;
+import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.AddProductShoppingCartResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductByUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductShoppingCartResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.FindPushByUserResponseDTO;
 import com.example.apitrocatinesql.models.Product;
 import com.example.apitrocatinesql.models.ShoppingCart;
 import com.example.apitrocatinesql.models.User;
@@ -18,7 +16,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.ClientInfoStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +55,7 @@ public class ShoppingCartService {
         return new AddProductShoppingCartResponseDTO(true);
     }
 
-    public List<FindProductShoppingCartResponseDTO> findProductShoppingCart (FindProductShoppingCartResquestDTO resquest){
+    public List<FindProductShoppingCartResponseDTO> findProductShoppingCart (FindProductShoppingCartRequestDTO resquest){
         User user = userRepository.findUserByEmail(resquest.email());
         if (user == null){
             throw new NotFound("Not found user");

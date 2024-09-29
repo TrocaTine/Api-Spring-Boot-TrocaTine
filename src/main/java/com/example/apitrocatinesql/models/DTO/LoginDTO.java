@@ -1,4 +1,4 @@
-package com.example.apitrocatinesql.models.DTO.requestDTO;
+package com.example.apitrocatinesql.models.DTO;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
