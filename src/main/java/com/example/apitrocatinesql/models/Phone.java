@@ -9,7 +9,7 @@ import javax.management.ConstructorParameters;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstruc
+@NoArgsConstructor
 @Entity
 @Table(name = "phones")
 public class Phone {
