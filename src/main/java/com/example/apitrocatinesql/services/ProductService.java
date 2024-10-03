@@ -278,7 +278,7 @@ public class ProductService {
                 productRepository.deleteById(id);
                 delete = true;
             } catch (DataIntegrityViolationException e) {
-                throw new ForeignKeyConstraintException("This product can`t delete, because have foreign key in other table");
+                throw new ForeignKeyConstraintException("This product can´t delete, because have foreign key in other table");
             }
         }
         return new DeleteProductResponseDTO(delete);

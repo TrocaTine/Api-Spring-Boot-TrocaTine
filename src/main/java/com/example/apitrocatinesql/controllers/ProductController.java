@@ -57,7 +57,7 @@ public class ProductController {
         return new StandardResponseDTO(false, productCardByListTag);
     }
     @GetMapping("/find-product-information")
-    public StandardResponseDTO findProductInformation(@Valid @RequestBody FindProductInformationResponseDTO id){
+    public StandardResponseDTO findProductInformation(@Valid @RequestBody FindProductInformactionRequestDTO id){
         FindProductInformationResponseDTO product = productService.findProductInformation(id.id());
         return new StandardResponseDTO(false, product);
     }
