@@ -4,6 +4,7 @@ import com.example.apitrocatinesql.exception.*;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
 import com.fasterxml.jackson.core.JsonParseException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.postgresql.util.PSQLException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +75,21 @@ public class ExecptioHandler {
         StandardResponseDTO response = new StandardResponseDTO(true,
                 new ExceptionHandlerDTO(418, paf.getMessage(), request.getServletPath()));
         return new ResponseEntity<>(response, HttpStatus.I_AM_A_TEAPOT);
+    }
+
+    // Captura PSQLException (erro de usuário já existente)
+    @ExceptionHandler(PSQLException.class)
+    public ResponseEntity<String> handlePSQLException(PSQLException ex) {
+        if (ex.getMessage().contains("Usuario já existente")) {
+            return new ResponseEntity<>("Usuário já existe no sistema.", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Erro no banco de dados.", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // Captura a exceção personalizada UserAlreadyExistsException
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<String> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
 

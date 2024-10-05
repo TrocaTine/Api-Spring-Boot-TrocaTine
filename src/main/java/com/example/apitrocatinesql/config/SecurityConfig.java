@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/users/encrypt-password").permitAll()
                         .requestMatchers("/users/checking-email-already-registered").permitAll()
                         .requestMatchers("/users/checking-cpf-already-registered").permitAll()
+                        .requestMatchers("/users/create-user").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
