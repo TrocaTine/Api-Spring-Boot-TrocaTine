@@ -1,13 +1,16 @@
 package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFoundUser;
+import com.example.apitrocatinesql.exception.UserAlreadyExistsException;
 import com.example.apitrocatinesql.models.DTO.AddressDTO;
+import com.example.apitrocatinesql.models.DTO.requestDTO.CreateUserRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.EditPersonalInformationRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.models.Phone;
 import com.example.apitrocatinesql.models.User;
 import com.example.apitrocatinesql.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.postgresql.util.PSQLException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +91,21 @@ public class UserService {
             throw new NotFoundUser("Not Found User");
         }
     }
+
+    public CreateUserResponseDTO createUser(CreateUserRequestDTO request){
+        try {
+            EncryptPasswordResponseDTO encryptPassword  = encryptPassword(request.password());
+            usersRepository.createUser(request.firstName(), request.lastName(), request.email(), request.cpf(), request.birthDate(),
+                    request.admin(),request.nickname(), encryptPassword.password(), request.street(), request.number(), request.city(), request.state(), request.neighborhood(), request.complement(), request.cep(), request.numberPhone());
+
+        } catch (Exception ex) {
+            if (ex.getMessage().contains("Usuario já existente")) {
+                throw new UserAlreadyExistsException("User already registered");
+            }
+            throw new RuntimeException("Error creating user : " + ex.getMessage());
+        }
+        return new CreateUserResponseDTO(true);
+    }
+
+
 }

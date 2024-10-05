@@ -46,6 +46,12 @@ public class UserController {
         return new StandardResponseDTO(false, editPersonalInformationResponseDTO);
     }
 
+    @PostMapping("/create-user")
+    public StandardResponseDTO createUser(@Valid @RequestBody CreateUserRequestDTO createUserRequestDTO){
+        CreateUserResponseDTO createUserResponseDTO = usersService.createUser(createUserRequestDTO);
+        return new StandardResponseDTO(false, createUserResponseDTO);
+    }
+
 
 
 
