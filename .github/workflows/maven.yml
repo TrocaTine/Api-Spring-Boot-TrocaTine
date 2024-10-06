@@ -19,13 +19,18 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
-    - name: Deploy EC2
-      run: |
-        echo "${{secrets.KEY_EC2_JAVA}}" > private_key
-        chmod 400 private_key
-        ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-3-221-159-50.compute-1.amazonaws.com "
-          cd /home/ubuntu/Api-Spring-Boot-Sql
-          git pull
-          mvn clean package -DskipTests
-          ./executar.sh
-        "
+    - name: Render Deploy Action0
+      uses: johnbeynon/render-deploy-action@v0.0.8
+      with:
+        service-id: "${{secrets.SERVICE_ID}}"
+        api-key: "${{secrets.API_KEY}}"
+    # - name: Deploy EC2
+    #   run: |
+    #     echo "${{secrets.KEY_EC2_JAVA}}" > private_key
+    #     chmod 400 private_key
+    #     ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-3-221-159-50.compute-1.amazonaws.com "
+    #       cd /home/ubuntu/Api-Spring-Boot-Sql
+    #       git pull
+    #       mvn clean package -DskipTests
+    #       ./executar.sh
+    #     "
