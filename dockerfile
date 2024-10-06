@@ -2,6 +2,6 @@ FROM maven:3.8.3-openjdk-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
-COPY --from=build /target/apiBdEstoque-0.0.1-SNAPSHOT.jar apiBdEstoque.jar
+COPY --from=build /target/-0.0.1-SNAPSHOT.jaApiTrocaTineSqlr ApiTrocaTineSql.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","apiBdEstoque.jar"]
+ENTRYPOINT ["java","-jar","ApiTrocaTineSql.jar"]
