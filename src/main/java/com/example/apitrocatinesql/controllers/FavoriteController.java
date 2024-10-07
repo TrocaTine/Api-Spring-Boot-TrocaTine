@@ -21,7 +21,7 @@ public class FavoriteController {
 
     private FavoriteService favoriteService;
 
-    @GetMapping("/find-product-favorite")
+    @PostMapping("/find-product-favorite")
     public StandardResponseDTO findProductFavorite(@Valid @RequestBody FindProductFavoriteRequestDTO request){
         List<FindProductFavoriteResponseDTO> productFavorite = favoriteService.findProductFavorite(request.email());
         return new StandardResponseDTO(false, productFavorite);
@@ -32,8 +32,5 @@ public class FavoriteController {
         SaveFavoriteProductResponseDTO savefavoriteProduct = favoriteService.savefavoriteProduct(request.email(), request.id());
         return new StandardResponseDTO(false, savefavoriteProduct);
     }
-
-
-
 
 }

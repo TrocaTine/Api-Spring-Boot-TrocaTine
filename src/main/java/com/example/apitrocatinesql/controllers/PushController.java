@@ -20,7 +20,7 @@ public class PushController {
 
     private PushService pushService;
 
-    @GetMapping("/find-push-user")
+    @PostMapping("/find-push-user")
     public StandardResponseDTO findPushByUser(@Valid @RequestBody FindPushByUserRequestDTO request){
         List<FindPushByUserResponseDTO> listPush = pushService.findPushByUser(request.email());
         return new StandardResponseDTO(false, listPush);

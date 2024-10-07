@@ -18,12 +18,12 @@ public class TrocadinhaController {
 
     TrocadinhaService trocadinhaService;
 
-    @GetMapping("/trocadinha-count")
+    @PostMapping("/trocadinha-count")
     public StandardResponseDTO findTrocadinhaCount(@Valid @RequestBody FindTrocadinhaCountRequestDTO findTrocadinhaCountRequestDTO){
         FindTrocadinhaCountResponseDTO findTrocadinhaCount = trocadinhaService.findTrocadinhaCount(findTrocadinhaCountRequestDTO.email());
         return new StandardResponseDTO(false, findTrocadinhaCount);
     }
-    @GetMapping("/ranking")
+    @PostMapping("/ranking")
     public StandardResponseDTO findRankingTrocadinha(){
         List<FindRankingTrocadinhaResponseDTO> ranking = trocadinhaService.findRankingTrocadinha();
         return new StandardResponseDTO(false, ranking);

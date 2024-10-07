@@ -18,51 +18,51 @@ public class ProductController {
 
     private ProductService productService;
 
-    @GetMapping("/find-product-card")
+    @PostMapping("/find-product-card")
     public StandardResponseDTO findProductCard(){
         List<FindProductCardResponseDTO> productCardResponseDTO = productService.findProductCard();
         return new StandardResponseDTO(false, productCardResponseDTO);
     }
 
-    @GetMapping("/find-product-card-trade")
+    @PostMapping("/find-product-card-trade")
     public StandardResponseDTO findProductCardTrade(){
         List<FindProductCardTradeResponseDTO> productCardResponseDTO = productService.findProductCardTrade();
         return new StandardResponseDTO(false, productCardResponseDTO);
     }
 
-    @GetMapping("/find-product-card-buy")
+    @PostMapping("/find-product-card-buy")
     public StandardResponseDTO findProductCardBuy(){
         List<FindProductCardBuyResponseDTO> productCardBuyResponseDTO = productService.findProductCardBuy();
         return new StandardResponseDTO(false, productCardBuyResponseDTO);
     }
 
-    @GetMapping("/find-product-card-tag")
+    @PostMapping("/find-product-card-tag")
     public StandardResponseDTO findProductCardByTag(@Valid @RequestBody FindProductCardTagRequestDTO tag){
         List<FindProductCardTagResponseDTO> productCardTagResponseDTO = productService.findProductCardByTag(tag.tag());
         return new StandardResponseDTO(false, productCardTagResponseDTO);
     }
-    @GetMapping("/find-product-card-category")
+    @PostMapping("/find-product-card-category")
     public StandardResponseDTO findProductCardByCategory(@Valid @RequestBody FindProductCardCategoryRequestDTO category){
         List<FindProductCardCategoryResponseDTO> productCardCategoryResponseDTO = productService.findProductCardByCategory(category.category());
         return new StandardResponseDTO(false, productCardCategoryResponseDTO);
     }
-    @GetMapping("/find-product-card-name")
+    @PostMapping("/find-product-card-name")
     public StandardResponseDTO findProductCardByName(@Valid @RequestBody FindProductCardNameRequestDTO name){
         List<FindProductCardNameResponseDTO> productCardNameResponseDTO = productService.findProductCardByName(name.name());
         return new StandardResponseDTO(false, productCardNameResponseDTO);
     }
-    @GetMapping("/find-product-card-list-tag")
+    @PostMapping("/find-product-card-list-tag")
     public StandardResponseDTO findProductCardByLitTag(@Valid @RequestBody FindProductCardListTagsRequestDTO tag){
         List<FindProductCardListTagResponseDTO> productCardByListTag= productService.findProductCardByListTag(tag.tagName());
         return new StandardResponseDTO(false, productCardByListTag);
     }
-    @GetMapping("/find-product-information")
+    @PostMapping("/find-product-information")
     public StandardResponseDTO findProductInformation(@Valid @RequestBody FindProductInformactionRequestDTO id){
         FindProductInformationResponseDTO product = productService.findProductInformation(id.id());
         return new StandardResponseDTO(false, product);
     }
 
-    @GetMapping("/find-product-user")
+    @PostMapping("/find-product-user")
     public StandardResponseDTO findProductByUser(@Valid @RequestBody FindProductByUserRequestDTO email){
         List<FindProductByUserResponseDTO> productByUserResponseDTO = productService.findPorductByUser(email.email());
         return new StandardResponseDTO(false, productByUserResponseDTO);
