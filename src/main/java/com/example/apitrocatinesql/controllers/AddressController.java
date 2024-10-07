@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AddressController {
     private AddressService addressService;
-    @GetMapping("/find-address")
+    @PostMapping("/find-address")
     public StandardResponseDTO findAddressUser(@Valid @RequestBody FindUserAddressRequestDTO request){
         List<FindUserAddressResponseDTO> address = addressService.findUserAddress(request);
         return new StandardResponseDTO(false, address);

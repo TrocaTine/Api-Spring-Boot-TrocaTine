@@ -25,7 +25,7 @@ public class ShoppingCartController {
         return new StandardResponseDTO(false, addProductShoppingCart);
     }
 
-    @GetMapping("find-product")
+    @PostMapping("find-product")
     public StandardResponseDTO findProductShoppingCart(@Valid @RequestBody FindProductShoppingCartRequestDTO resquest){
         List<FindProductShoppingCartResponseDTO> findProduct = shoppingCartService.findProductShoppingCart(resquest);
         return new StandardResponseDTO(false, findProduct);

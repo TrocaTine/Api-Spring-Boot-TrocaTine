@@ -10,7 +10,6 @@ import com.example.apitrocatinesql.models.Phone;
 import com.example.apitrocatinesql.models.User;
 import com.example.apitrocatinesql.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.postgresql.util.PSQLException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
