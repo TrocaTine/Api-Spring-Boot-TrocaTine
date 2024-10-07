@@ -75,6 +75,12 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/api")
+    public StandardResponseDTO conect(){
+        return new StandardResponseDTO(true, null);
+    }
+
+
 
 
 }
