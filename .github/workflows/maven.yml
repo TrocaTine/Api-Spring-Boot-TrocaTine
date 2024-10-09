@@ -24,13 +24,13 @@ jobs:
       with:
         service-id: "${{secrets.SERVICE_ID}}"
         api-key: "${{secrets.API_KEY}}"
-    # - name: Deploy EC2
-    #   run: |
-    #     echo "${{secrets.KEY_EC2_JAVA}}" > private_key
-    #     chmod 400 private_key
-    #     ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-3-221-159-50.compute-1.amazonaws.com "
-    #       cd /home/ubuntu/Api-Spring-Boot-Sql
-    #       git pull
-    #       mvn clean package -DskipTests
-    #       ./executar.sh
-    #     "
+    - name: Deploy EC2
+      run: |
+        echo "${{secrets.KEY_EC2_JAVA}}" > private_key
+        chmod 400 private_key
+        ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-3-221-159-50.compute-1.amazonaws.com "
+          cd /home/ubuntu/Api-Spring-Boot-Sql
+          git pull
+          mvn clean package -DskipTests
+          ./executar.sh
+        "
