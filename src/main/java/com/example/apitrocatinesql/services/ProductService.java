@@ -310,7 +310,7 @@ public class ProductService {
 
         User user = userRepository.findUserByEmail(productRequest.emailUser());
         if (user == null) {
-            throw new NotFoundUser("User not found for email: " + productRequest.emailUser());
+            throw new NotFound("User not found for email: " + productRequest.emailUser());
         }
 
         Product productFinally = new Product();
@@ -326,9 +326,9 @@ public class ProductService {
         productFinally.setCategories(categories);
         productFinally.setTags(tags);
 
-        productRepository.save(productFinally);
+        Product product = productRepository.save(productFinally);
 
-        return new SaveProductResponseDTO(true);
+        return new SaveProductResponseDTO(product.getIdProduct());
     }
 
     public EditProductResponseDTO editProduct(EditProductRequestDTO productRequest) {
