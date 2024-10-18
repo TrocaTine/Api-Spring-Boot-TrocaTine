@@ -8,6 +8,6 @@ import java.util.List;
 
 public record SaveProductResponseDTO
         (
-                boolean saved
+                Long idProduct
         ) {
 }

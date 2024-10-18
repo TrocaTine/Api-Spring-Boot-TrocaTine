@@ -69,6 +69,7 @@ public class User {
     )
     private Set<Push> pushes;
 
+
     @ManyToMany
     @JoinTable(
             name = "favorites",

@@ -2,12 +2,11 @@ package com.example.apitrocatinesql.models;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -32,7 +31,12 @@ public class Push {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @ManyToMany(mappedBy = "pushes")
+    @ManyToMany
+    @JoinTable(
+            name = "users_push",
+            joinColumns = @JoinColumn(name = "id_push"),
+            inverseJoinColumns = @JoinColumn(name = "id_user")
+    )
     private Set<User> users;
 
 

@@ -24,7 +24,7 @@ public class Trocadinha {
 
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
-    private User user; // Adicione esta propriedade
+    private User user;
 
     @Column(name = "number_trocadinha")
     private Integer numberTrocadinha;

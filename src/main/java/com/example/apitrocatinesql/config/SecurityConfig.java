@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import javax.crypto.SecretKey;
 
 @Configuration
@@ -33,6 +32,8 @@ public class SecurityConfig {
                         .requestMatchers("/users/encrypt-password").permitAll()
                         .requestMatchers("/users/checking-email-already-registered").permitAll()
                         .requestMatchers("/users/checking-cpf-already-registered").permitAll()
+                        .requestMatchers("/users/create-user").permitAll()
+                        .requestMatchers("/api").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())

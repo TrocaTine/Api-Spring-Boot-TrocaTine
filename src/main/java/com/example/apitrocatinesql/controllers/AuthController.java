@@ -2,7 +2,7 @@ package com.example.apitrocatinesql.controllers;
 
 import com.example.apitrocatinesql.config.SecurityConfig;
 import com.example.apitrocatinesql.exception.ExceptionHandlerDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.LoginDTO;
+import com.example.apitrocatinesql.models.DTO.LoginDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.TokenResponseDTO;
 import com.example.apitrocatinesql.models.User;
@@ -74,6 +74,12 @@ public class AuthController {
             return standardResponseDTO;
         }
     }
+
+    @GetMapping("/api")
+    public StandardResponseDTO conect(){
+        return new StandardResponseDTO(true, null);
+    }
+
 
 
 
