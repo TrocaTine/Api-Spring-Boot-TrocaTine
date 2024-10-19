@@ -1,3 +1,4 @@
+
 package com.example.apitrocatinesql.models;
 
 import jakarta.persistence.*;
@@ -27,4 +28,3 @@ public class Favorite {
     private Product product;
 
 }
-
