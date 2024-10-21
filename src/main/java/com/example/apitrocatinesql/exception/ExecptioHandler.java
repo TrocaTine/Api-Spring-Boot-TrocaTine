@@ -77,7 +77,6 @@ public class ExecptioHandler {
         return new ResponseEntity<>(response, HttpStatus.I_AM_A_TEAPOT);
     }
 
-    // Captura PSQLException (erro de usuário já existente)
     @ExceptionHandler(PSQLException.class)
     public ResponseEntity<String> handlePSQLException(PSQLException ex) {
         if (ex.getMessage().contains("Usuario já existente")) {
@@ -86,7 +85,6 @@ public class ExecptioHandler {
         return new ResponseEntity<>("Erro no banco de dados.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Captura a exceção personalizada UserAlreadyExistsException
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<String> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);

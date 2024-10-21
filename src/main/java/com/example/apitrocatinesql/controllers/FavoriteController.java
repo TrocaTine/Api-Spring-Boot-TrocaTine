@@ -3,10 +3,8 @@ package com.example.apitrocatinesql.controllers;
 import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductCardTagRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductFavoriteRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveFavoriteProductRequestDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductCardTagResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductFavoriteResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.SaveFavoriteProductResponseDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
+import com.example.apitrocatinesql.models.DTO.requestDTO.UnfavoriteProductRequestDTO;
+import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.services.FavoriteService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,5 +30,12 @@ public class FavoriteController {
         SaveFavoriteProductResponseDTO savefavoriteProduct = favoriteService.savefavoriteProduct(request.email(), request.id());
         return new StandardResponseDTO(false, savefavoriteProduct);
     }
+
+    @PostMapping("/unfavorite-product")
+    public StandardResponseDTO unfavoriteProduct(@Valid @RequestBody UnfavoriteProductRequestDTO request){
+        UnfavoriteProductResponseDTO unfavoriteProduct = favoriteService.unfavoriteProduct(request.id(), request.email());
+        return new StandardResponseDTO(false, unfavoriteProduct);
+    }
+
 
 }

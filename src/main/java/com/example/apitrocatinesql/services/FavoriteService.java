@@ -5,6 +5,7 @@ import com.example.apitrocatinesql.exception.ProductAlreadyFavoritedException;
 import com.example.apitrocatinesql.models.DTO.HighlightDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductFavoriteResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SaveFavoriteProductResponseDTO;
+import com.example.apitrocatinesql.models.DTO.responseDTO.UnfavoriteProductResponseDTO;
 import com.example.apitrocatinesql.models.Favorite;
 import com.example.apitrocatinesql.models.FavoriteId;
 import com.example.apitrocatinesql.models.Product;
@@ -68,6 +69,28 @@ public class FavoriteService {
         }
         return new SaveFavoriteProductResponseDTO(true);
 
+    }
+
+    public UnfavoriteProductResponseDTO unfavoriteProduct(Long idProduct, String email) {
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new NotFound("User not found");
+        }
+
+        Product product = productRepository.findProductByIdProduct(idProduct);
+        if (product == null) {
+            throw new NotFound("Product not found");
+        }
+
+        Favorite favorite = favoriteRepository.findFavoriteByProductAndUser(product, user);
+
+        if (favorite == null) {
+            throw new NotFound("Favorite relationship not found");
+        }
+
+        favoriteRepository.delete(favorite);
+
+        return new UnfavoriteProductResponseDTO(true);
     }
 
 
