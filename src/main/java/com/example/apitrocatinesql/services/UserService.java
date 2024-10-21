@@ -8,11 +8,13 @@ import com.example.apitrocatinesql.models.DTO.requestDTO.EditPersonalInformation
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.models.Phone;
 import com.example.apitrocatinesql.models.User;
+import com.example.apitrocatinesql.repositories.PhoneRepository;
 import com.example.apitrocatinesql.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class UserService {
 
     private final UserRepository usersRepository;
     private PasswordEncoder passwordEncoder;
+    private PhoneRepository phoneRepository;
 
     public EncryptPasswordResponseDTO encryptPassword(String password) {
         String encryptedPassword = passwordEncoder.encode(password);
@@ -65,12 +68,15 @@ public class UserService {
 
     public EditPersonalInformationResponseDTO editPersonalInformation(EditPersonalInformationRequestDTO editPersonalInformationRequestDTO) {
         User userFind = usersRepository.findUserByEmail(editPersonalInformationRequestDTO.email());
-        if (userFind != null) {
-            userFind.setEmail(editPersonalInformationRequestDTO.newEmail());
 
-            Set<Phone> phone = userFind.getPhones();
-            phone.add(new Phone(editPersonalInformationRequestDTO.number(), userFind));
-            userFind.setPhones(phone);
+        if (userFind != null) {
+            phoneRepository.deletePhonesByUser(userFind);
+
+                Set<Phone> phone = new HashSet<>();
+                phone.add(new Phone(editPersonalInformationRequestDTO.number(), userFind));
+                userFind.setPhones(phone);
+
+            userFind.setEmail(editPersonalInformationRequestDTO.newEmail());
 
             userFind.setNickname(editPersonalInformationRequestDTO.nickname());
 
