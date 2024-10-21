@@ -70,7 +70,7 @@ public class UserService {
         User userFind = usersRepository.findUserByEmail(editPersonalInformationRequestDTO.email());
 
         if (userFind != null) {
-            phoneRepository.deletePhonesByUser(userFind);
+            phoneRepository.deleteById(userFind.getIdUser());
 
                 Set<Phone> phone = new HashSet<>();
                 phone.add(new Phone(editPersonalInformationRequestDTO.number(), userFind));
