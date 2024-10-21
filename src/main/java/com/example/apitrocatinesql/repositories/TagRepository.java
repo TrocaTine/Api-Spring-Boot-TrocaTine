@@ -4,9 +4,11 @@ import com.example.apitrocatinesql.models.Product;
 import com.example.apitrocatinesql.models.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
-    public Tag findTagByNameIgnoreCase(String name);
-
+    Tag findTagByNameIgnoreCase(String name);
+    List<Tag> findTagByType(String type);
 
 }
