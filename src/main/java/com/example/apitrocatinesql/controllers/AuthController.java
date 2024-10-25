@@ -40,7 +40,7 @@ public class AuthController {
         this.securityConfig = securityConfig;
     }
     @PostMapping("/api/auth/login")
-    public StandardResponseDTO login(@Valid @RequestBody LoginDTO loginRequest, HttpServletRequest request) throws JsonProcessingException {
+    public StandardResponseDTO login(@Valid @RequestBody LoginDTO loginRequest, HttpServletRequest request)  {
         User user = usersRepository.findUserByEmail(loginRequest.email());
         if (user != null && passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             try {
