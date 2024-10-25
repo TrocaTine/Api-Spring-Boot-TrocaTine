@@ -5,10 +5,12 @@ import com.example.apitrocatinesql.exception.NotFoundUser;
 import com.example.apitrocatinesql.models.DTO.requestDTO.*;
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.services.ProductService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.spi.MidiDeviceProvider;
 import java.util.List;
 
 @RestController
@@ -85,6 +87,13 @@ public class ProductController {
         EditProductResponseDTO saved = productService.editProduct(product);
         return new StandardResponseDTO(false, saved);
     }
+
+    @GetMapping("/find-product-id/{productId}")
+    public boolean checkProductExist(@PathVariable Long productId ){
+        boolean productExist = productService.checkProductExist(productId);
+        return productExist;
+    }
+
 
 
 

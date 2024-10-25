@@ -1,10 +1,13 @@
 package com.example.apitrocatinesql.filter;
 
 
+import com.example.apitrocatinesql.exception.UnauthorizedException;
+import com.example.apitrocatinesql.exception.UserAlreadyExistsException;
 import com.example.apitrocatinesql.services.CustomUserDetailService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -42,21 +45,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authorizationHeader.substring(7);
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
 
-        String username = claims.getSubject();
-        List<GrantedAuthority> authorities =  Collections.emptyList();
-        if (username != null) {
-            UserDetails userDetails = userDetailService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            String username = claims.getSubject();
+            List<GrantedAuthority> authorities = Collections.emptyList();
+            if (username != null) {
+                UserDetails userDetails = userDetailService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+
+            filterChain.doFilter(request, response);
+        }catch (SignatureException se){
+            System.out.println("LANÇANDO EXCEPTION");
+            throw new UserAlreadyExistsException("Token invalid");
         }
-
-        filterChain.doFilter(request, response);
     }
 }

@@ -39,7 +39,7 @@ public class ProductService {
     private CategoryRepository categoryRepository;
     private UserRepository userRepository;
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(ProductService.class);
+
     public List<FindProductCardResponseDTO> findProductCard(){
 
         boolean highlight = true;
@@ -381,6 +381,15 @@ public class ProductService {
                 newProduct.getTags().stream().map(tag -> tag.getName()).collect(Collectors.toList()),
                 newProduct.getCategories().stream().map(category -> category.getName()).collect(Collectors.toList())
         );
+    }
+
+
+    public boolean checkProductExist(Long id){
+        Product product = productRepository.findProductByIdProduct(id);
+        if(product == null){
+            throw new NotFound("Not Found Product");
+        }
+        return true;
     }
 
 

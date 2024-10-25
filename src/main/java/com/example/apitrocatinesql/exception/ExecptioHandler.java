@@ -1,28 +1,31 @@
 package com.example.apitrocatinesql.exception;
 
-import com.example.apitrocatinesql.exception.*;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
-import com.fasterxml.jackson.core.JsonParseException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.postgresql.util.PSQLException;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.naming.AuthenticationException;
-import java.nio.file.AccessDeniedException;
+import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestControllerAdvice
 public class ExecptioHandler {
+
+
+    public ExecptioHandler(){
+        System.out.println("EXECUTADO EXCEPTION");
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardResponseDTO> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
         Map<String, String> errors = new HashMap<>();
@@ -78,26 +81,33 @@ public class ExecptioHandler {
     }
 
     @ExceptionHandler(PSQLException.class)
-    public ResponseEntity<String> handlePSQLException(PSQLException ex) {
+    public ResponseEntity<StandardResponseDTO> handlePSQLException(PSQLException ex, HttpServletRequest request) {
         if (ex.getMessage().contains("Usuario já existente")) {
-            return new ResponseEntity<>("Usuário já existe no sistema.", HttpStatus.CONFLICT);
+             return new ResponseEntity<>(new StandardResponseDTO(true,
+                     new ExceptionHandlerDTO(409, "Usuário já existe no sistema.", request.getServletPath())), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>("Erro no banco de dados.", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new StandardResponseDTO(true,
+                new ExceptionHandlerDTO(500, ex.getMessage(), request.getServletPath())), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<String> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    public ResponseEntity<StandardResponseDTO> handleUserAlreadyExistsException(UserAlreadyExistsException ex, HttpServletRequest request) {
+        return new ResponseEntity<>(new StandardResponseDTO(true,
+                new ExceptionHandlerDTO(409, ex.getMessage(), request.getServletPath())), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<StandardResponseDTO> handleSignatureException(SignatureException se, HttpServletRequest request) {
+        return new ResponseEntity<>(new StandardResponseDTO(true,
+                new ExceptionHandlerDTO(401, se.getMessage(), request.getServletPath())), HttpStatus.UNAUTHORIZED);
 
+    }
+    @ExceptionHandler(ErrorCreatingUser.class)
+    public ResponseEntity<StandardResponseDTO> handleErrorCreatingUserException(ErrorCreatingUser ecu, HttpServletRequest request) {
+        return new ResponseEntity<>(new StandardResponseDTO(true,
+                new ExceptionHandlerDTO(404, ecu.getMessage(), request.getServletPath())), HttpStatus.BAD_REQUEST);
 
-
-
-
-
-
-
+    }
 
 }
 

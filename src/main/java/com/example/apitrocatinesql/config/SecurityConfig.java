@@ -33,6 +33,8 @@ public class SecurityConfig {
                         .requestMatchers("/users/checking-email-already-registered").permitAll()
                         .requestMatchers("/users/checking-cpf-already-registered").permitAll()
                         .requestMatchers("/users/create-user").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/**").permitAll()
                         .requestMatchers("/api").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -43,6 +45,8 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

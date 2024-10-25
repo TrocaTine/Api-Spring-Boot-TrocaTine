@@ -1,5 +1,6 @@
 package com.example.apitrocatinesql.services;
 
+import com.example.apitrocatinesql.exception.ErrorCreatingUser;
 import com.example.apitrocatinesql.exception.NotFoundUser;
 import com.example.apitrocatinesql.exception.UserAlreadyExistsException;
 import com.example.apitrocatinesql.models.DTO.AddressDTO;
@@ -72,9 +73,9 @@ public class UserService {
         if (userFind != null) {
             phoneRepository.deleteById(userFind.getIdUser());
 
-                Set<Phone> phone = new HashSet<>();
-                phone.add(new Phone(editPersonalInformationRequestDTO.number(), userFind));
-                userFind.setPhones(phone);
+            Set<Phone> phone = new HashSet<>();
+            phone.add(new Phone(editPersonalInformationRequestDTO.number(), userFind));
+            userFind.setPhones(phone);
 
             userFind.setEmail(editPersonalInformationRequestDTO.newEmail());
 
@@ -107,7 +108,7 @@ public class UserService {
             if (ex.getMessage().contains("Usuario já existente")) {
                 throw new UserAlreadyExistsException("User already registered");
             }
-            throw new RuntimeException("Error creating user : " + ex.getMessage());
+            throw new ErrorCreatingUser("Error creating user : " + ex.getMessage());
         }
         return new CreateUserResponseDTO(true);
     }
