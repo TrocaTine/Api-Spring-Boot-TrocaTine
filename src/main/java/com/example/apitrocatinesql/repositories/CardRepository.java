@@ -9,4 +9,6 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<SavedCard, Long> {
 
     List<SavedCard> findSavedCardByUser(User user);
+
+    SavedCard findSavedCardByCardNumberAndUser(String cardNumber, User user);
 }

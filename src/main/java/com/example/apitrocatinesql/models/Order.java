@@ -38,5 +38,9 @@ public class Order {
     @Column(name = "accounted_at")
     private LocalDate accountedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "id_product", nullable = false)
+    private Product product;
+
 }
 

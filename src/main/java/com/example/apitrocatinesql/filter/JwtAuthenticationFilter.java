@@ -1,29 +1,21 @@
 package com.example.apitrocatinesql.filter;
 
-
-import com.example.apitrocatinesql.exception.UnauthorizedException;
-import com.example.apitrocatinesql.exception.UserAlreadyExistsException;
 import com.example.apitrocatinesql.services.CustomUserDetailService;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.security.Security;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,8 +56,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         }catch (SignatureException se){
-            System.out.println("LANÇANDO EXCEPTION");
-            throw new UserAlreadyExistsException("Token invalid");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\": \"Token invalid\"}");
+            response.getWriter().flush();
         }
     }
 }
