@@ -3,8 +3,6 @@ package com.example.apitrocatinesql.exception;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.postgresql.util.PSQLException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,11 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestControllerAdvice
 public class ExecptioHandler {
@@ -96,16 +91,16 @@ public class ExecptioHandler {
                 new ExceptionHandlerDTO(409, ex.getMessage(), request.getServletPath())), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(SignatureException.class)
-    public ResponseEntity<StandardResponseDTO> handleSignatureException(SignatureException se, HttpServletRequest request) {
+    @ExceptionHandler(SelfProduct.class)
+    public ResponseEntity<StandardResponseDTO> handleSelfProductAdditionException(SelfProduct sda, HttpServletRequest request) {
         return new ResponseEntity<>(new StandardResponseDTO(true,
-                new ExceptionHandlerDTO(401, se.getMessage(), request.getServletPath())), HttpStatus.UNAUTHORIZED);
+                new ExceptionHandlerDTO(400, sda.getMessage(), request.getServletPath())), HttpStatus.BAD_REQUEST);
 
     }
     @ExceptionHandler(ErrorCreatingUser.class)
     public ResponseEntity<StandardResponseDTO> handleErrorCreatingUserException(ErrorCreatingUser ecu, HttpServletRequest request) {
         return new ResponseEntity<>(new StandardResponseDTO(true,
-                new ExceptionHandlerDTO(404, ecu.getMessage(), request.getServletPath())), HttpStatus.BAD_REQUEST);
+                new ExceptionHandlerDTO(400, ecu.getMessage(), request.getServletPath())), HttpStatus.BAD_REQUEST);
 
     }
 

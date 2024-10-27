@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 
@@ -20,35 +21,39 @@ import java.util.Set;
 @Table(name = "products")
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_product")
     private Long idProduct;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "value")
-    private BigDecimal value;
+    private BigDecimal value ;
 
-    @Column(name = "stock")
-    private Long stock;
+    private Long stock = 1L;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "update_at")
-    private LocalDate updateAt;
+    private LocalDate updateAt ;
 
-    @Column(name = "flag_trade", nullable = false)
-    private Boolean flagTrade;
+    @Column(name = "flag_trade")
+    private Boolean flagTrade = true;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy = "product")
+    private List<Order> orders;
 
     @ManyToMany
     @JoinTable(

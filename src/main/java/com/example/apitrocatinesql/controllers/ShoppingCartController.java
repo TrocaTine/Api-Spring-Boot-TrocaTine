@@ -1,8 +1,10 @@
 package com.example.apitrocatinesql.controllers;
 
 import com.example.apitrocatinesql.models.DTO.requestDTO.AddProductShoppingCartResquestDTO;
+import com.example.apitrocatinesql.models.DTO.requestDTO.DeleteShoppingCartsRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.AddProductShoppingCartResponseDTO;
+import com.example.apitrocatinesql.models.DTO.responseDTO.DeleteShoppingCartsResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductShoppingCartResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
 import com.example.apitrocatinesql.services.ShoppingCartService;
@@ -25,9 +27,15 @@ public class ShoppingCartController {
         return new StandardResponseDTO(false, addProductShoppingCart);
     }
 
-    @PostMapping("find-product")
+    @PostMapping("/find-product")
     public StandardResponseDTO findProductShoppingCart(@Valid @RequestBody FindProductShoppingCartRequestDTO resquest){
         List<FindProductShoppingCartResponseDTO> findProduct = shoppingCartService.findProductShoppingCart(resquest);
         return new StandardResponseDTO(false, findProduct);
+    }
+
+    @DeleteMapping("/delete-product-cart")
+    public StandardResponseDTO deleteProductShoppingCart(@Valid @RequestBody DeleteShoppingCartsRequestDTO request){
+        DeleteShoppingCartsResponseDTO deleteProduct = shoppingCartService.deleteShoppingCarts(request);
+        return new StandardResponseDTO(false, deleteProduct);
     }
 }

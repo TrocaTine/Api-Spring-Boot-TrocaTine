@@ -1,7 +1,9 @@
 package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFound;
-import com.example.apitrocatinesql.exception.SelfProductAddition;
+import com.example.apitrocatinesql.exception.SelfProduct;
+import com.example.apitrocatinesql.models.DTO.requestDTO.DeleteShoppingCartsRequestDTO;
+import com.example.apitrocatinesql.models.DTO.responseDTO.DeleteShoppingCartsResponseDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.AddProductShoppingCartResquestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.AddProductShoppingCartResponseDTO;
@@ -37,7 +39,7 @@ public class ShoppingCartService {
             throw new NotFound("Not found user");
         }
         if(product.getUser() == user){
-            throw new SelfProductAddition("you can't self product addition");
+            throw new SelfProduct("you can't self product addition");
         }
 
         BigDecimal totalValue = product.getValue().multiply(BigDecimal.valueOf(request.quantity()));
@@ -68,6 +70,28 @@ public class ShoppingCartService {
                 new FindProductShoppingCartResponseDTO(product.getProduct().getName(), product.getValue(),
                         product.getQuantity())).collect(Collectors.toList());
         return findProduct;
+    }
+
+    public DeleteShoppingCartsResponseDTO deleteShoppingCarts(DeleteShoppingCartsRequestDTO request){
+        Product product = productRepository.findProductByIdProduct(request.idProduct());
+        if(product == null){
+            throw new NotFound("Not found product");
+        }
+        User user =  userRepository.findUserByEmail(request.email());
+        if (user == null){
+            throw new NotFound("Not found user");
+        }
+        ShoppingCart cart = shoppingCartRepository.findShoppingCartByUserAndProduct(user, product);
+        if(cart == null){
+            throw new NotFound("Not found shopping cart");
+        }
+        shoppingCartRepository.deleteById(cart.getIdShoppingCart());
+        ShoppingCart cartDelete = shoppingCartRepository.findShoppingCartByUserAndProduct(user, product);
+        if(cartDelete == null){
+            return new DeleteShoppingCartsResponseDTO(true);
+        }
+        return new DeleteShoppingCartsResponseDTO(false);
+
     }
 
 }
