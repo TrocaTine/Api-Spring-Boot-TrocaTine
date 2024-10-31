@@ -70,9 +70,9 @@ public class ProductController {
         return new StandardResponseDTO(false, productByUserResponseDTO);
     }
 
-    @DeleteMapping("/delete-product")
-    public StandardResponseDTO deleteProduct(@Valid @RequestBody DeleteProductRequestDTO id){
-        DeleteProductResponseDTO deleteProductResponseDTO = productService.deleteProduct(id.idProduct());
+    @DeleteMapping("/delete-product/{id}")
+    public StandardResponseDTO deleteProduct(@Valid @PathVariable Long id){
+        DeleteProductResponseDTO deleteProductResponseDTO = productService.deleteProduct(id);
         return new StandardResponseDTO(false, deleteProductResponseDTO);
     }
 
