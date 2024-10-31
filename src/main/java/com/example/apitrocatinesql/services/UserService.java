@@ -113,5 +113,11 @@ public class UserService {
         return new CreateUserResponseDTO(true);
     }
 
+    public Long idUser(String email){
+        User user = usersRepository.findUserByEmail(email);
+        return user.getIdUser();
+    }
+
+
 
 }
