@@ -34,13 +34,13 @@ public class UserController {
         return new StandardResponseDTO(false, alreadyRegisteredResponseDTO);
     }
 
-    @PostMapping("/find-personal-information")
-    public StandardResponseDTO findPersonalInformation(@Valid @RequestBody FindPersonalInformationRequestDTO email){
-        FindPersonalInformationResponseDTO findPersonalInformationResponseDTO = usersService.findPersonalInformation(email.email());
+    @GetMapping("/find-personal-information/{email}")
+    public StandardResponseDTO findPersonalInformation(@Valid @PathVariable String  email){
+        FindPersonalInformationResponseDTO findPersonalInformationResponseDTO = usersService.findPersonalInformation(email);
         return new StandardResponseDTO(false, findPersonalInformationResponseDTO);
     }
 
-    @PostMapping("/edit-personal-information")
+    @PutMapping("/edit-personal-information")
     public StandardResponseDTO editPersonalInformation(@Valid @RequestBody EditPersonalInformationRequestDTO editPersonalInformationRequestDTO){
         EditPersonalInformationResponseDTO editPersonalInformationResponseDTO = usersService.editPersonalInformation(editPersonalInformationRequestDTO);
         return new StandardResponseDTO(false, editPersonalInformationResponseDTO);

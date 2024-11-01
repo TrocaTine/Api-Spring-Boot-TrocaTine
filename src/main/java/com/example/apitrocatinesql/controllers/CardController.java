@@ -1,6 +1,6 @@
 package com.example.apitrocatinesql.controllers;
 
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindCardUserRequestDTO;
+
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveInformactionCardRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindCardUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SaveInformactionCardResponseDTO;
@@ -25,8 +25,8 @@ public class CardController {
         return new StandardResponseDTO(false, result);
     }
     @GetMapping("/find-card-user")
-    public StandardResponseDTO findCardByUser(@RequestBody @Valid FindCardUserRequestDTO requestDTO){
-        List<FindCardUserResponseDTO> result = cardService.findCardByUser(requestDTO);
+    public StandardResponseDTO findCardByUser(@RequestBody @Valid String email){
+        List<FindCardUserResponseDTO> result = cardService.findCardByUser(email);
         return new StandardResponseDTO(false, result);
     }
 

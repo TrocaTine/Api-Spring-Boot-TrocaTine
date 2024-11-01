@@ -1,15 +1,10 @@
 package com.example.apitrocatinesql.controllers;
 
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindTagByTypeRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
-import com.example.apitrocatinesql.services.CategoryService;
 import com.example.apitrocatinesql.services.TagService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,9 +15,9 @@ public class TagController {
 
     private TagService tagService;
 
-    @GetMapping("/find-tag-type")
-    public StandardResponseDTO findTagByType(@RequestBody @Valid FindTagByTypeRequestDTO requestDTO){
-        List<String> result = tagService.findTagByType(requestDTO.type());
+    @GetMapping("/find-tag-type/{type}")
+    public StandardResponseDTO findTagByType(@PathVariable @Valid String type){
+        List<String> result = tagService.findTagByType(type);
         return new StandardResponseDTO(false, result);
     }
 }

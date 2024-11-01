@@ -2,7 +2,6 @@ package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFound;
 import com.example.apitrocatinesql.exception.NotFoundUser;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindPushByUserRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.SavePushRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindPushByUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SavePushResponseDTO;
