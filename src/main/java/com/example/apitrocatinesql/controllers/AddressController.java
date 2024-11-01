@@ -1,8 +1,8 @@
 package com.example.apitrocatinesql.controllers;
 
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindUserAddressRequestDTO;
+
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveAddressRequestDTO;
-import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductCardResponseDTO;
+
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindUserAddressResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SaveAddressResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
@@ -18,9 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 public class AddressController {
     private AddressService addressService;
-    @PostMapping("/find-address")
-    public StandardResponseDTO findAddressUser(@Valid @RequestBody FindUserAddressRequestDTO request){
-        List<FindUserAddressResponseDTO> address = addressService.findUserAddress(request);
+    @GetMapping("/find-address/{email}")
+    public StandardResponseDTO findAddressUser(@Valid @PathVariable String email){
+        List<FindUserAddressResponseDTO> address = addressService.findUserAddress(email);
         return new StandardResponseDTO(false, address);
     }
     @PostMapping("/save-address")

@@ -41,15 +41,14 @@ public class CardService {
         return new SaveInformactionCardResponseDTO(true);
     }
 
-    public List<FindCardUserResponseDTO> findCardByUser(FindCardUserRequestDTO request){
-        User user = userRepository.findUserByEmail(request.email());
-
+    public List<FindCardUserResponseDTO> findCardByUser(String email){
+        User user = userRepository.findUserByEmail(email);
         if(user == null){
             throw new NotFound("Not found user");
         }
-
-        List<FindCardUserResponseDTO> findCardUser = cardRepository.findSavedCardByUser(user).stream().map(savedCard -> new FindCardUserResponseDTO(savedCard.getCardNumber(), savedCard.getExpirationDate(), savedCard.getCvv())).collect(Collectors.toList());
-
+        List<FindCardUserResponseDTO> findCardUser = cardRepository.findSavedCardByUser(user).stream().map(savedCard -> new
+                FindCardUserResponseDTO(savedCard.getCardNumber(), savedCard.getExpirationDate(),
+                savedCard.getCvv())).collect(Collectors.toList());
         return findCardUser;
     }
 

@@ -2,10 +2,8 @@ package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFound;
 import com.example.apitrocatinesql.exception.SelfProduct;
-import com.example.apitrocatinesql.models.DTO.requestDTO.DeleteShoppingCartsRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.DeleteShoppingCartsResponseDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.AddProductShoppingCartResquestDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.AddProductShoppingCartResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductShoppingCartResponseDTO;
 import com.example.apitrocatinesql.models.Product;
@@ -57,8 +55,8 @@ public class ShoppingCartService {
         return new AddProductShoppingCartResponseDTO(true);
     }
 
-    public List<FindProductShoppingCartResponseDTO> findProductShoppingCart (FindProductShoppingCartRequestDTO resquest){
-        User user = userRepository.findUserByEmail(resquest.email());
+    public List<FindProductShoppingCartResponseDTO> findProductShoppingCart (String email){
+        User user = userRepository.findUserByEmail(email);
         if (user == null){
             throw new NotFound("Not found user");
         }
@@ -72,12 +70,12 @@ public class ShoppingCartService {
         return findProduct;
     }
 
-    public DeleteShoppingCartsResponseDTO deleteShoppingCarts(DeleteShoppingCartsRequestDTO request){
-        Product product = productRepository.findProductByIdProduct(request.idProduct());
+    public DeleteShoppingCartsResponseDTO deleteShoppingCarts(String email, Long idProduct){
+        Product product = productRepository.findProductByIdProduct(idProduct);
         if(product == null){
             throw new NotFound("Not found product");
         }
-        User user =  userRepository.findUserByEmail(request.email());
+        User user =  userRepository.findUserByEmail(email);
         if (user == null){
             throw new NotFound("Not found user");
         }

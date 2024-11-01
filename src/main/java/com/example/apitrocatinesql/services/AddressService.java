@@ -2,7 +2,6 @@ package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFound;
 import com.example.apitrocatinesql.models.Address;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindUserAddressRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveAddressRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindUserAddressResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SaveAddressResponseDTO;
@@ -23,8 +22,8 @@ public class AddressService {
     private AddressRepository addressRepository;
     private UserRepository userRepository;
 
-    public List<FindUserAddressResponseDTO> findUserAddress(FindUserAddressRequestDTO request){
-        User user = userRepository.findUserByEmail(request.email());
+    public List<FindUserAddressResponseDTO> findUserAddress(String email){
+        User user = userRepository.findUserByEmail(email);
         if (user == null){
             throw new NotFound("Not found user");
         }

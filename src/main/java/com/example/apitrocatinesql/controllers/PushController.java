@@ -1,7 +1,7 @@
 package com.example.apitrocatinesql.controllers;
 
 
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindPushByUserRequestDTO;
+
 import com.example.apitrocatinesql.models.DTO.requestDTO.SavePushRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindPushByUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SavePushResponseDTO;
@@ -20,9 +20,9 @@ public class PushController {
 
     private PushService pushService;
 
-    @PostMapping("/find-push-user")
-    public StandardResponseDTO findPushByUser(@Valid @RequestBody FindPushByUserRequestDTO request){
-        List<FindPushByUserResponseDTO> listPush = pushService.findPushByUser(request.email());
+    @GetMapping("/find-push-user/{email}")
+    public StandardResponseDTO findPushByUser(@Valid @PathVariable String email){
+        List<FindPushByUserResponseDTO> listPush = pushService.findPushByUser(email);
         return new StandardResponseDTO(false, listPush);
     }
 

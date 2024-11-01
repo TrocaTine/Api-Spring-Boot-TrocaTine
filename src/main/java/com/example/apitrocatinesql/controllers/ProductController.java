@@ -20,53 +20,53 @@ public class ProductController {
 
     private ProductService productService;
 
-    @PostMapping("/find-product-card")
+    @GetMapping("/find-product-card")
     public StandardResponseDTO findProductCard(){
         List<FindProductCardResponseDTO> productCardResponseDTO = productService.findProductCard();
         return new StandardResponseDTO(false, productCardResponseDTO);
     }
 
-    @PostMapping("/find-product-card-trade")
+    @GetMapping("/find-product-card-trade")
     public StandardResponseDTO findProductCardTrade(){
         List<FindProductCardTradeResponseDTO> productCardResponseDTO = productService.findProductCardTrade();
         return new StandardResponseDTO(false, productCardResponseDTO);
     }
 
-    @PostMapping("/find-product-card-buy")
+    @GetMapping("/find-product-card-buy")
     public StandardResponseDTO findProductCardBuy(){
         List<FindProductCardBuyResponseDTO> productCardBuyResponseDTO = productService.findProductCardBuy();
         return new StandardResponseDTO(false, productCardBuyResponseDTO);
     }
 
-    @PostMapping("/find-product-card-tag")
-    public StandardResponseDTO findProductCardByTag(@Valid @RequestBody FindProductCardTagRequestDTO tag){
-        List<FindProductCardTagResponseDTO> productCardTagResponseDTO = productService.findProductCardByTag(tag.tag());
+    @GetMapping("/find-product-card-tag/{tag}")
+    public StandardResponseDTO findProductCardByTag(@Valid @PathVariable String tag){
+        List<FindProductCardTagResponseDTO> productCardTagResponseDTO = productService.findProductCardByTag(tag);
         return new StandardResponseDTO(false, productCardTagResponseDTO);
     }
-    @PostMapping("/find-product-card-category")
-    public StandardResponseDTO findProductCardByCategory(@Valid @RequestBody FindProductCardCategoryRequestDTO category){
-        List<FindProductCardCategoryResponseDTO> productCardCategoryResponseDTO = productService.findProductCardByCategory(category.category());
+    @GetMapping("/find-product-card-category/{category}")
+    public StandardResponseDTO findProductCardByCategory(@Valid @PathVariable String category){
+        List<FindProductCardCategoryResponseDTO> productCardCategoryResponseDTO = productService.findProductCardByCategory(category);
         return new StandardResponseDTO(false, productCardCategoryResponseDTO);
     }
-    @PostMapping("/find-product-card-name")
-    public StandardResponseDTO findProductCardByName(@Valid @RequestBody FindProductCardNameRequestDTO name){
-        List<FindProductCardNameResponseDTO> productCardNameResponseDTO = productService.findProductCardByName(name.name());
+    @GetMapping("/find-product-card-name/{name}")
+    public StandardResponseDTO findProductCardByName(@Valid @PathVariable String name){
+        List<FindProductCardNameResponseDTO> productCardNameResponseDTO = productService.findProductCardByName(name);
         return new StandardResponseDTO(false, productCardNameResponseDTO);
     }
-    @PostMapping("/find-product-card-list-tag")
-    public StandardResponseDTO findProductCardByLitTag(@Valid @RequestBody FindProductCardListTagsRequestDTO tag){
-        List<FindProductCardListTagResponseDTO> productCardByListTag= productService.findProductCardByListTag(tag.tagName());
+    @GetMapping("/find-product-card-list-tag/{tag}")
+    public StandardResponseDTO findProductCardByLitTag(@Valid @PathVariable List<String> tag){
+        List<FindProductCardListTagResponseDTO> productCardByListTag= productService.findProductCardByListTag(tag);
         return new StandardResponseDTO(false, productCardByListTag);
     }
-    @PostMapping("/find-product-information")
-    public StandardResponseDTO findProductInformation(@Valid @RequestBody FindProductInformactionRequestDTO id){
-        FindProductInformationResponseDTO product = productService.findProductInformation(id.id());
+    @GetMapping("/find-product-information/{id}")
+    public StandardResponseDTO findProductInformation(@Valid @PathVariable Long id){
+        FindProductInformationResponseDTO product = productService.findProductInformation(id);
         return new StandardResponseDTO(false, product);
     }
 
-    @PostMapping("/find-product-user")
-    public StandardResponseDTO findProductByUser(@Valid @RequestBody FindProductByUserRequestDTO email){
-        List<FindProductByUserResponseDTO> productByUserResponseDTO = productService.findPorductByUser(email.email());
+    @GetMapping("/find-product-user/{email}")
+    public StandardResponseDTO findProductByUser(@Valid @PathVariable String email){
+        List<FindProductByUserResponseDTO> productByUserResponseDTO = productService.findPorductByUser(email);
         return new StandardResponseDTO(false, productByUserResponseDTO);
     }
 
@@ -82,7 +82,7 @@ public class ProductController {
         return new StandardResponseDTO(false, saved);
     }
 
-    @PostMapping("/edit-product")
+    @PutMapping("/edit-product")
     public StandardResponseDTO editProduct(@Valid @RequestBody EditProductRequestDTO product){
         EditProductResponseDTO saved = productService.editProduct(product);
         return new StandardResponseDTO(false, saved);

@@ -1,8 +1,6 @@
 package com.example.apitrocatinesql.controllers;
 
 import com.example.apitrocatinesql.models.DTO.requestDTO.AddProductShoppingCartResquestDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.DeleteShoppingCartsRequestDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductShoppingCartRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.AddProductShoppingCartResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.DeleteShoppingCartsResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindProductShoppingCartResponseDTO;
@@ -27,15 +25,15 @@ public class ShoppingCartController {
         return new StandardResponseDTO(false, addProductShoppingCart);
     }
 
-    @PostMapping("/find-product")
-    public StandardResponseDTO findProductShoppingCart(@Valid @RequestBody FindProductShoppingCartRequestDTO resquest){
-        List<FindProductShoppingCartResponseDTO> findProduct = shoppingCartService.findProductShoppingCart(resquest);
+    @GetMapping("/find-product/{email}")
+    public StandardResponseDTO findProductShoppingCart(@Valid @PathVariable String email){
+        List<FindProductShoppingCartResponseDTO> findProduct = shoppingCartService.findProductShoppingCart(email);
         return new StandardResponseDTO(false, findProduct);
     }
 
-    @DeleteMapping("/delete-product-cart")
-    public StandardResponseDTO deleteProductShoppingCart(@Valid @RequestBody DeleteShoppingCartsRequestDTO request){
-        DeleteShoppingCartsResponseDTO deleteProduct = shoppingCartService.deleteShoppingCarts(request);
+    @DeleteMapping("/delete-product-cart/{email}/{idProduct}")
+    public StandardResponseDTO deleteProductShoppingCart(@Valid @PathVariable String email, Long idProduct){
+        DeleteShoppingCartsResponseDTO deleteProduct = shoppingCartService.deleteShoppingCarts(email, idProduct);
         return new StandardResponseDTO(false, deleteProduct);
     }
 }

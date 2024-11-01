@@ -1,7 +1,5 @@
 package com.example.apitrocatinesql.controllers;
 
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductCardTagRequestDTO;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindProductFavoriteRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveFavoriteProductRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.UnfavoriteProductRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
@@ -19,9 +17,9 @@ public class FavoriteController {
 
     private FavoriteService favoriteService;
 
-    @PostMapping("/find-product-favorite")
-    public StandardResponseDTO findProductFavorite(@Valid @RequestBody FindProductFavoriteRequestDTO request){
-        List<FindProductFavoriteResponseDTO> productFavorite = favoriteService.findProductFavorite(request.email());
+    @GetMapping("/find-product-favorite/{email}")
+    public StandardResponseDTO findProductFavorite(@Valid @PathVariable String email){
+        List<FindProductFavoriteResponseDTO> productFavorite = favoriteService.findProductFavorite(email);
         return new StandardResponseDTO(false, productFavorite);
     }
 
