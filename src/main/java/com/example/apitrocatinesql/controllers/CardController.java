@@ -24,8 +24,8 @@ public class CardController {
         SaveInformactionCardResponseDTO result = cardService.saveInformactionCard(requestDTO);
         return new StandardResponseDTO(false, result);
     }
-    @GetMapping("/find-card-user")
-    public StandardResponseDTO findCardByUser(@RequestBody @Valid String email){
+    @GetMapping("/find-card-user/{email}")
+    public StandardResponseDTO findCardByUser(@PathVariable @Valid String email){
         List<FindCardUserResponseDTO> result = cardService.findCardByUser(email);
         return new StandardResponseDTO(false, result);
     }
