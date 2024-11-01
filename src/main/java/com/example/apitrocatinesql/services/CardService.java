@@ -1,7 +1,6 @@
 package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.NotFound;
-import com.example.apitrocatinesql.models.DTO.requestDTO.FindCardUserRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.SaveInformactionCardRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindCardUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SaveFavoriteProductResponseDTO;
