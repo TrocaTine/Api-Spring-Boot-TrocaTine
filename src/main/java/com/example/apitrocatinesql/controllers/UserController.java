@@ -53,11 +53,18 @@ public class UserController {
     }
 
     @GetMapping("/id-user/{email}")
-    public  StandardResponseDTO idUser(@PathVariable String email){
+    public StandardResponseDTO idUser(@PathVariable String email){
         Long idUser = usersService.idUser(email);
         return new StandardResponseDTO(false, idUser);
 
     }
+
+    @PostMapping("/user-info-product/{idProduct}")
+    private StandardResponseDTO saveInfoProduct(@PathVariable Long idProduct){
+        SaveInfoProductResposeDTO result = usersService.saveInfoProduct(idProduct);
+        return new StandardResponseDTO(false, result);
+    }
+
 
 
 

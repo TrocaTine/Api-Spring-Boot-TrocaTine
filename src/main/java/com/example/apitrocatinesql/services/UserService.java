@@ -1,6 +1,7 @@
 package com.example.apitrocatinesql.services;
 
 import com.example.apitrocatinesql.exception.ErrorCreatingUser;
+import com.example.apitrocatinesql.exception.NotFound;
 import com.example.apitrocatinesql.exception.NotFoundUser;
 import com.example.apitrocatinesql.exception.UserAlreadyExistsException;
 import com.example.apitrocatinesql.models.DTO.AddressDTO;
@@ -8,8 +9,10 @@ import com.example.apitrocatinesql.models.DTO.requestDTO.CreateUserRequestDTO;
 import com.example.apitrocatinesql.models.DTO.requestDTO.EditPersonalInformationRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.models.Phone;
+import com.example.apitrocatinesql.models.Product;
 import com.example.apitrocatinesql.models.User;
 import com.example.apitrocatinesql.repositories.PhoneRepository;
+import com.example.apitrocatinesql.repositories.ProductRepository;
 import com.example.apitrocatinesql.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +29,7 @@ public class UserService {
     private final UserRepository usersRepository;
     private PasswordEncoder passwordEncoder;
     private PhoneRepository phoneRepository;
+    private ProductRepository productRepository;
 
     public EncryptPasswordResponseDTO encryptPassword(String password) {
         String encryptedPassword = passwordEncoder.encode(password);
@@ -119,5 +123,12 @@ public class UserService {
     }
 
 
-
+    public SaveInfoProductResposeDTO saveInfoProduct(Long idProduct) {
+        Product product = productRepository.findProductByIdProduct(idProduct);
+        if (product == null){
+            throw new NotFound("Not found product");
+        }
+        User user = product.getUser();
+        return new SaveInfoProductResposeDTO(user.getIdUser(), user.getEmail(), user.getFirstName());
+    }
 }

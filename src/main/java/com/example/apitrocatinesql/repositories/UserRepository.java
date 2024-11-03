@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsUserByCpf(String cpf);
 
+    User findUserByIdUser(Long idUser);
+
     @Procedure(procedureName = "create_user")
     void createUser(
             @Param("first_name") String firstName,
