@@ -59,9 +59,9 @@ public class UserController {
 
     }
 
-    @PostMapping("/user-info-product/{idProduct}")
-    private StandardResponseDTO saveInfoProduct(@PathVariable Long idProduct){
-        SaveInfoProductResposeDTO result = usersService.saveInfoProduct(idProduct);
+    @PostMapping("/user-info-product/{idProduct}/{email}")
+    private StandardResponseDTO saveInfoProduct(@PathVariable Long idProduct, String email){
+        SaveInfoProductResponseDTO result = usersService.saveInfoProduct(idProduct, email);
         return new StandardResponseDTO(false, result);
     }
 
