@@ -123,12 +123,14 @@ public class UserService {
     }
 
 
-    public SaveInfoProductResposeDTO saveInfoProduct(Long idProduct) {
+    public SaveInfoProductResponseDTO saveInfoProduct(Long idProduct, String email) {
         Product product = productRepository.findProductByIdProduct(idProduct);
         if (product == null){
             throw new NotFound("Not found product");
         }
-        User user = product.getUser();
-        return new SaveInfoProductResposeDTO(user.getIdUser(), user.getEmail(), user.getFirstName());
+        User userProduct = product.getUser();
+
+        User user = usersRepository.findUserByEmail(email);
+        return new SaveInfoProductResponseDTO(userProduct.getIdUser(), userProduct.getNickname(), user.getIdUser(), user.getNickname() );
     }
 }
