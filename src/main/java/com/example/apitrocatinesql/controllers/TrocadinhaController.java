@@ -19,7 +19,7 @@ public class TrocadinhaController {
     TrocadinhaService trocadinhaService;
 
     @GetMapping("/trocadinha-count/{email}")
-    public StandardResponseDTO findTrocadinhaCount(@Valid @RequestBody String email){
+    public StandardResponseDTO findTrocadinhaCount(@Valid @PathVariable String email){
         FindTrocadinhaCountResponseDTO findTrocadinhaCount = trocadinhaService.findTrocadinhaCount(email);
         return new StandardResponseDTO(false, findTrocadinhaCount);
     }
