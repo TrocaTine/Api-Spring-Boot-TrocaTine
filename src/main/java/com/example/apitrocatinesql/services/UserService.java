@@ -131,6 +131,9 @@ public class UserService {
         User userProduct = product.getUser();
 
         User user = usersRepository.findUserByEmail(email);
+        if (user == null){
+            throw new NotFound("Not found user");
+        }
         return new SaveInfoProductResponseDTO(userProduct.getIdUser(), userProduct.getNickname(), user.getIdUser(), user.getNickname() );
     }
 }
