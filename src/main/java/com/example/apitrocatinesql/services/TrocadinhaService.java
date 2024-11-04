@@ -55,8 +55,14 @@ public class TrocadinhaService {
         Trocadinha trocadinha = trocadinhaRepository.findByUserAndExpirationDateGreaterThanEqual(user, LocalDate.now());
         if(trocadinha != null){
             countTrocadinha += trocadinha.getNumberTrocadinha();
+            trocadinha.setNumberTrocadinha(countTrocadinha);
+            trocadinha.setLastAtualization(LocalDate.now());
+
+        }else{
+            trocadinha = new Trocadinha().builder().user(user).lastAtualization(LocalDate.now())
+                    .numberTrocadinha(countTrocadinha).expirationDate(LocalDate.now().plusDays(20)).build();
         }
-        trocadinha.setNumberTrocadinha(countTrocadinha);
+
         trocadinhaRepository.save(trocadinha);
         return new AddingTrodinhaResponseDTO(countTrocadinha);
     }
