@@ -1,18 +1,16 @@
 package com.example.apitrocatinesql.models.DTO;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.validator.constraints.pl.NIP;
 
+@Schema(description = "Data Transfer Object representing user login information")
 public record LoginDTO(
         @NotNull
+        @Schema(description = "User email", example = "user@example.com")
         String email,
+
         @NotNull
-        String password) {
-
-
+        @Schema(description = "User password", example = "securePassword123")
+        String password
+) {
 }
-
