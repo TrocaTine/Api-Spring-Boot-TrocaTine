@@ -62,7 +62,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "addresses_users",
+            name = "adresses_users",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_adress")
 
