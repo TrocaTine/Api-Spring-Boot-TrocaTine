@@ -12,6 +12,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,8 @@ import java.util.Collections;
 import java.util.Date;
 
 @RestController
+@Tag(name = "Authenticator controller", description = "Controller responsible for managing authentication")
+
 public class AuthController {
 
     //    private static final Logger logger = (Logger) LoggerFactory.getLogger(AuthController.class);
@@ -39,6 +45,11 @@ public class AuthController {
         this.secretKey  = secretKey;
         this.securityConfig = securityConfig;
     }
+    @Operation(summary = "Create and find a token by user info", description = "Return the user token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully returned user token"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @PostMapping("/api/auth/login")
     public StandardResponseDTO login(@Valid @RequestBody LoginDTO loginRequest, HttpServletRequest request)  {
         User user = usersRepository.findUserByEmail(loginRequest.email());
