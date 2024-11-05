@@ -58,8 +58,6 @@ public class User {
     @Size(min = 2, message = "Password must have at least 2 characters")
     private String password;
 
-    // Relacionamentos
-
     @ManyToMany
     @JoinTable(
             name = "adresses_users",
