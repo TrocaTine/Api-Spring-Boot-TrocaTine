@@ -65,6 +65,7 @@ public class User {
             name = "addresses_users",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_adress")
+
     )
     private Set<Address> addresses;
 
