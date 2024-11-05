@@ -1,11 +1,10 @@
 package com.example.apitrocatinesql.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -15,6 +14,7 @@ import java.util.Set;
 @Builder
 @Table(name = "trocadinhas")
 public class Trocadinha {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_trocadinha")
@@ -25,6 +25,7 @@ public class Trocadinha {
     private User user;
 
     @Column(name = "number_trocadinha")
+    @Min(value = 0, message = "Number of trocadinhas must be at least 0")
     private Integer numberTrocadinha;
 
     @Column(name = "expiration_date")
@@ -32,7 +33,4 @@ public class Trocadinha {
 
     @Column(name = "last_atualization")
     private LocalDate lastAtualization;
-
-
 }
-
