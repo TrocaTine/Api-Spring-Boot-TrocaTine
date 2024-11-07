@@ -50,6 +50,8 @@ public class UserService {
         User personalInf = usersRepository.findUserByEmail(email);
         FindPersonalInformationResponseDTO responseDTO = null;
         if (personalInf != null) {
+            String passwordCript = personalInf.getPassword();
+            String password;
             Set<String> phones = personalInf.getPhones().stream()
                     .map(phone -> phone.getNumber())
                     .collect(Collectors.toSet());
@@ -64,7 +66,7 @@ public class UserService {
                     .collect(Collectors.toSet());
             responseDTO = new FindPersonalInformationResponseDTO(
                     phones, personalInf.getCpf(), personalInf.getBirthDate(), addresses,
-                    personalInf.getFirstName() + " " + personalInf.getLastName(), personalInf.getNickname(), personalInf.getEmail());
+                    personalInf.getFirstName() + " " + personalInf.getLastName(), personalInf.getNickname(), personalInf.getEmail(), passwordCript);
         } else {
             throw new NotFoundUser("Not found user");
         }

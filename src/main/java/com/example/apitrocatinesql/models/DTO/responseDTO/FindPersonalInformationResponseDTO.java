@@ -11,7 +11,8 @@ public record FindPersonalInformationResponseDTO(
         Set<AddressDTO> addresses,
         String fullName,
         String nickname,
-        String email
+        String email,
+        String senha
 
 ) {
 }
