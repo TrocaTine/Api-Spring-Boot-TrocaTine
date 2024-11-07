@@ -1,6 +1,5 @@
 package com.example.apitrocatinesql.controllers;
 
-
 import com.example.apitrocatinesql.models.DTO.requestDTO.FinishedOrderRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FinishedOrderResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.StandardResponseDTO;
@@ -15,6 +14,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("/order")
@@ -26,10 +27,18 @@ public class OrderController {
 
     @Operation(summary = "Finalize product order", description = "Completes the order process for a product.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully finalized the order"),
-            @ApiResponse(responseCode = "500", description = "Internal server error"),
-            @ApiResponse(responseCode = "404", description = "Not found"),
-            @ApiResponse(responseCode = "409", description = "Order could not be processed")
+            @ApiResponse(responseCode = "200", description = "Successfully finalized the order", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = FinishedOrderResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Not found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "409", description = "Order could not be processed", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = StandardResponseDTO.class))
+            })
     })
     @PostMapping("/finished-order")
     public StandardResponseDTO finishedOrder(@Valid @RequestBody FinishedOrderRequestDTO request) {

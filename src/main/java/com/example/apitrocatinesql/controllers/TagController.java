@@ -18,7 +18,7 @@ import java.util.List;
 @Tag(name = "Tag Controller", description = "Controller responsible for managing product tags")
 public class TagController {
 
-    private TagService tagService;
+    private final TagService tagService;
 
     @Operation(summary = "Find tags by type", description = "Retrieves a list of tags based on the specified type.")
     @ApiResponses(value = {
@@ -27,7 +27,7 @@ public class TagController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/find-tag-type/{type}")
-    public StandardResponseDTO findTagByType(@Valid @PathVariable String type){
+    public StandardResponseDTO findTagByType(@Valid @PathVariable String type) {
         List<String> result = tagService.findTagByType(type);
         return new StandardResponseDTO(false, result);
     }
