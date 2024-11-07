@@ -66,7 +66,7 @@ public class ShoppingCartService {
         }
         List<FindProductShoppingCartResponseDTO> findProduct = shoppingCarts.stream().map(product ->
                 new FindProductShoppingCartResponseDTO(product.getProduct().getName(), product.getValue(),
-                        product.getQuantity())).collect(Collectors.toList());
+                        product.getQuantity(), product.getProduct().getIdProduct())).collect(Collectors.toList());
         return findProduct;
     }
 

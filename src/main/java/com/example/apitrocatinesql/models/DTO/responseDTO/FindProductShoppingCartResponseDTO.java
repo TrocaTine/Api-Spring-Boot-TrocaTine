@@ -6,6 +6,7 @@ public record FindProductShoppingCartResponseDTO(
 
         String title,
         BigDecimal value,
-        int quality
+        int quality,
+        Long idProduct
 ) {
 }
