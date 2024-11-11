@@ -1,5 +1,6 @@
 package com.example.apitrocatinesql.repositories;
 
+
 import com.example.apitrocatinesql.models.Product;
 import com.example.apitrocatinesql.models.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;

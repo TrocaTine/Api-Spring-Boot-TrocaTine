@@ -31,4 +31,11 @@ public class TagController {
         List<String> result = tagService.findTagByType(type);
         return new StandardResponseDTO(false, result);
     }
+
+
+    @GetMapping("/find-tag-all")
+    public StandardResponseDTO findTagAll(@Valid @PathVariable String type){
+        List<String> result = tagService.findAllTags();
+        return new StandardResponseDTO(false, result);
+    }
 }
