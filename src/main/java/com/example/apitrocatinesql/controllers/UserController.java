@@ -1,6 +1,5 @@
 package com.example.apitrocatinesql.controllers;
 
-
 import com.example.apitrocatinesql.models.DTO.requestDTO.*;
 import com.example.apitrocatinesql.models.DTO.responseDTO.*;
 import com.example.apitrocatinesql.services.UserService;

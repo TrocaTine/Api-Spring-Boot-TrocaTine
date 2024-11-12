@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/shopping-cart")
 @AllArgsConstructor
 @Tag(name = "Shopping Cart Controller", description = "Controller responsible for managing the shopping cart")
 public class ShoppingCartController {
 
-    private ShoppingCartService shoppingCartService;
+    private final ShoppingCartService shoppingCartService;
 
     @Operation(summary = "Add product to shopping cart", description = "Adds a product to the shopping cart.")
     @ApiResponses(value = {
@@ -32,9 +31,9 @@ public class ShoppingCartController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/add-product")
-    public StandardResponseDTO addProductShoppingCart(@Valid @RequestBody AddProductShoppingCartResquestDTO request){
-        AddProductShoppingCartResponseDTO addProductShoppingCart = shoppingCartService.addProductShoppingCart(request);
-        return new StandardResponseDTO(false, addProductShoppingCart);
+    public StandardResponseDTO addProductToShoppingCart(@Valid @RequestBody AddProductShoppingCartResquestDTO request) {
+        AddProductShoppingCartResponseDTO response = shoppingCartService.addProductShoppingCart(request);
+        return new StandardResponseDTO(false, response);
     }
 
     @Operation(summary = "Find products in shopping cart by email", description = "Retrieves a list of products in the shopping cart for the specified email.")
@@ -44,9 +43,9 @@ public class ShoppingCartController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/find-product/{email}")
-    public StandardResponseDTO findProductShoppingCart(@Valid @PathVariable String email){
-        List<FindProductShoppingCartResponseDTO> findProduct = shoppingCartService.findProductShoppingCart(email);
-        return new StandardResponseDTO(false, findProduct);
+    public StandardResponseDTO findProductsInShoppingCart(@Valid @PathVariable String email) {
+        List<FindProductShoppingCartResponseDTO> products = shoppingCartService.findProductShoppingCart(email);
+        return new StandardResponseDTO(false, products);
     }
 
     @Operation(summary = "Delete product from shopping cart", description = "Deletes a specific product from the shopping cart based on email and product ID.")
@@ -56,8 +55,8 @@ public class ShoppingCartController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @DeleteMapping("/delete-product-cart/{email}/{idProduct}")
-    public StandardResponseDTO deleteProductShoppingCart(@Valid @PathVariable String email, @PathVariable Long idProduct){
-        DeleteShoppingCartsResponseDTO deleteProduct = shoppingCartService.deleteShoppingCarts(email, idProduct);
-        return new StandardResponseDTO(false, deleteProduct);
+    public StandardResponseDTO deleteProductFromShoppingCart(@Valid @PathVariable String email, @PathVariable Long idProduct) {
+        DeleteShoppingCartsResponseDTO response = shoppingCartService.deleteShoppingCarts(email, idProduct);
+        return new StandardResponseDTO(false, response);
     }
 }

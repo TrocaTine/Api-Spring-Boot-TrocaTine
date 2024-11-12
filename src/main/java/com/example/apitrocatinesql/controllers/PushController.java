@@ -1,7 +1,5 @@
 package com.example.apitrocatinesql.controllers;
 
-
-
 import com.example.apitrocatinesql.models.DTO.requestDTO.SavePushRequestDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.FindPushByUserResponseDTO;
 import com.example.apitrocatinesql.models.DTO.responseDTO.SavePushResponseDTO;
@@ -16,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/notification")
