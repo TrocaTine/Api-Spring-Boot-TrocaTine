@@ -20,4 +20,8 @@ public class TagService {
         return listCategory.stream().map(Tag::getName).collect(Collectors.toList());
 
     }
+    public List<String> findAllTags(){
+        List<Tag> listCategory = tagRepository.findAll();
+        return listCategory.stream().map(Tag::getName).collect(Collectors.toList());
+    }
 }

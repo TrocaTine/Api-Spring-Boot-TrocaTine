@@ -44,7 +44,6 @@ public class Product {
 
     @Column(name = "value")
     @NotNull(message = "Product value is required.")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Product value must be greater than zero.")
     @Schema(description = "Price of the product", example = "25.99")
     private BigDecimal value;
 
