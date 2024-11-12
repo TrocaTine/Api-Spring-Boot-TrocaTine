@@ -42,7 +42,7 @@ public class TrocadinhaService {
                 .findTrocadinhaByExpirationDateGreaterThanEqual(LocalDate.now());
         ranking.sort(Comparator.comparingInt(Trocadinha::getNumberTrocadinha).reversed());
         List<FindRankingTrocadinhaResponseDTO> rankingList = ranking.stream().map(i ->
-                new FindRankingTrocadinhaResponseDTO(i.getUser().getEmail(), i.getNumberTrocadinha())).collect(Collectors.toList());
+                new FindRankingTrocadinhaResponseDTO(i.getUser().getEmail(), i.getUser().getNickname(), i.getNumberTrocadinha())).collect(Collectors.toList());
         return rankingList;
     }
 
