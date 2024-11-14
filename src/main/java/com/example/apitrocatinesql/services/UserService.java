@@ -136,6 +136,6 @@ public class UserService {
         if (user == null){
             throw new NotFound("Not found user");
         }
-        return new SaveInfoProductResponseDTO(userProduct.getIdUser(), userProduct.getNickname(), userProduct.getEmail(), user.getIdUser(), user.getNickname(), user.getEmail() );
+        return new SaveInfoProductResponseDTO(userProduct.getIdUser(), userProduct.getNickname(), user.getIdUser(), user.getNickname() );
     }
 }
