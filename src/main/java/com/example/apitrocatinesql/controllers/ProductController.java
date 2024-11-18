@@ -168,4 +168,24 @@ public class ProductController {
         SaveProductResponseDTO saved = productService.saveProduct(product);
         return new StandardResponseDTO(false, saved);
     }
+        @Operation(summary = "Edit an existing product", description = "Edits an existing product with the provided information.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully edited the product"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PutMapping("/edit-product")
+    public StandardResponseDTO editProduct(@Valid @RequestBody EditProductRequestDTO product){
+        EditProductResponseDTO saved = productService.editProduct(product);
+        return new StandardResponseDTO(false, saved);
+    }
+
+    @Operation(summary = "Check if product exists by ID", description = "Checks if a product exists based on the provided product ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product exists"),
+            @ApiResponse(responseCode = "404", description = "Product not found")
+    })
+    @GetMapping("/find-product-id/{productId}")
+    public boolean checkProductExist(@PathVariable Long productId){
+        return productService.checkProductExist(productId);
+    }
 }
